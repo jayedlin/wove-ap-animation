@@ -62,25 +62,23 @@
       padding:24px;
       box-sizing:border-box;
     }
-    .stage{
-      width:min(1100px,95vw);
-      border-radius:28px;
-      background: radial-gradient(1200px 600px at 20% -10%, rgba(96,165,250,0.18), transparent 60%),
-                  radial-gradient(1000px 560px at 90% 110%, rgba(37,99,235,0.18), transparent 60%),
-                  linear-gradient(180deg, #ffffff99, #ffffff77);
-      box-shadow: 0 10px 40px rgba(15,23,42,0.08);
-      padding: clamp(18px, 3vw, 32px) clamp(28px, 4vw, 48px);
-      position:relative;
-      overflow:hidden;
+    .stage {
+  width: min(1000px, 92vw);
+  margin: 0 auto; /* ✅ center horizontally */
+  padding: clamp(24px, 4vw, 48px);
+  border-radius: 28px;
+  position: relative;
+  overflow: visible; /* ✅ allow arrow heads to show */
+  text-align: center; /* ✅ helps on mobile */
     }
-    .grid{
-      display:grid;
-      grid-template-columns: 1fr auto 1fr auto 1fr;
-      align-items:center;
-      gap: clamp(10px, 2.6vw, 28px);
-      position:relative;
-      z-index:1;
-    }
+    .grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr); /* ✅ evenly spaced columns */
+  align-items: center;
+  justify-items: center; /* ✅ center cards + arrows */
+  gap: clamp(8px, 2vw, 24px);
+  width: 100%;
+}
     .card{
       background: var(--card);
       backdrop-filter: blur(8px);
