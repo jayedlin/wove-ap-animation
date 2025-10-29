@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex,nofollow" />
+  <title>Wove • AP Workflow Animation</title>
+  <style>
+    :root{
+      --bg1:#f0f7ff;
+      --bg2:#e6f0ff;
+      --card:#ffffffcc;
+      --ink:#0f172a;
+      --muted:#475569;
+      --blue:#2563eb;
+      --blue-200:#bfdbfe;
+      --blue-300:#93c5fd;
+      --blue-400:#60a5fa;
+      --glow: rgba(37,99,235,0.12);
+    }
+    html,body{height:100%;margin:0;background:linear-gradient(135deg,var(--bg1),var(--bg2));font-family: ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Inter,Segoe UI,Helvetica,Arial,"Apple Color Emoji","Segoe UI Emoji";color:var(--ink);}
+    .wrap{
+      display:grid;
+      place-items:center;
+      padding:24px;
+      box-sizing:border-box;
+    }
+    .stage{
+      width:min(1100px,95vw);
+      border-radius:28px;
+      background: radial-gradient(1200px 600px at 20% -10%, rgba(96,165,250,0.18), transparent 60%),
+                  radial-gradient(1000px 560px at 90% 110%, rgba(37,99,235,0.18), transparent 60%),
+                  linear-gradient(180deg, #ffffff99, #ffffff77);
+      box-shadow: 0 10px 40px rgba(15,23,42,0.08);
+      padding: clamp(18px, 3vw, 32px);
+      position:relative;
+      overflow:hidden;
+    }
+    .grid{
+      display:grid;
+      grid-template-columns: 1fr auto 1fr auto 1fr;
+      align-items:center;
+      gap: clamp(10px, 2.6vw, 28px);
+      position:relative;
+      z-index:1;
+    }
+    .card{
+      background: var(--card);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(148,163,184,0.35);
+      border-radius: 18px;
+      padding: 14px 16px;
+      box-shadow: 0 8px 20px rgba(2,8,23,0.06);
+      min-width: 220px;
+    }
+    .card .title{font-weight:700;font-size:14px}
+    .card .sub{color:var(--muted);font-size:12px;margin-top:4px}
+    .pill{
+      display:inline-grid; place-items:center;
+      width:36px;height:36px; border-radius:12px;
+      margin-right:10px;
+      color:white; background:linear-gradient(135deg,#60a5fa,#2563eb);
+      box-shadow:0 6px 16px var(--glow);
+      font-weight:700;
+    }
+    .row{display:flex; align-items:center}
+    /* Animated arrows */
+    .arrow{ width:140px; height:120px; }
+    svg{ overflow:visible }
+    .path{
+      fill:none; stroke:url(#grad); stroke-width:3; stroke-linecap:round;
+      stroke-dasharray:8 10; animation: dash 1.8s linear infinite;
+    }
+    .trail{
+      fill:none; stroke: var(--blue-300); stroke-width:8; stroke-linecap:round; opacity:.18;
+      animation: pulse 2.4s ease-in-out infinite;
+    }
+    @keyframes dash{ from{ stroke-dashoffset:0 } to{ stroke-dashoffset:-36 } }
+    @keyframes pulse{ 0%{opacity:.12} 50%{opacity:.22} 100%{opacity:.12} }
+    /* Backdrop flowing line */
+    .backdrop{ position:absolute; inset:0; z-index:0; }
+    .flow{ fill:none; stroke: url(#bgline); stroke-width:18; stroke-opacity:.35; }
+    @media (max-width:900px){
+      .grid{ grid-template-columns: 1fr; gap: 18px; }
+      .arrow{ transform: rotate(90deg); margin: 0 auto; }
+      .stage{ padding: 24px }
+      .card{ min-width: auto }
+    }
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce){
+      .path,.trail{ animation: none }
+    }
+    /* Tiny watermark (optional, can remove) */
+    .wm{ position:absolute; right:14px; bottom:10px; font-size:11px; color:#64748b; opacity:.7 }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <section class="stage" role="img" aria-label="Animated flow of Ingest, Validate and Sync steps">
+      <div class="grid">
+        <!-- Ingest card -->
+        <div class="card">
+          <div class="row">
+            <div class="pill">1</div>
+            <div>
+              <div class="title">Ingest</div>
+              <div class="sub">Email / Upload / Auto-split</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Arrow 1 -->
+        <div class="arrow">
+          <svg viewBox="0 0 120 120" aria-hidden="true">
+            <defs>
+              <linearGradient id="grad" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%" stop-color="#60a5fa"/><stop offset="100%" stop-color="#2563eb"/>
+              </linearGradient>
+              <marker id="arrowHead" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+                <polygon points="0 0, 7 3.5, 0 7" fill="#2563eb"/>
+              </marker>
+            </defs>
+            <path class="path" d="M10,100 C55,30 65,30 110,20" marker-end="url(#arrowHead)"/>
+            <path class="trail" d="M10,100 C55,30 65,30 110,20"/>
+          </svg>
+        </div>
+
+        <!-- Validate card (accent) -->
+        <div class="card" style="box-shadow:0 0 0 0 var(--glow);">
+          <div class="row">
+            <div class="pill" style="background:linear-gradient(135deg,#2563eb,#1d4ed8)">2</div>
+            <div>
+              <div class="title">Validate</div>
+              <div class="sub">Side-by-side review & edits</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Arrow 2 (mirrored) -->
+        <div class="arrow" style="transform: scaleX(-1);">
+          <svg viewBox="0 0 120 120" aria-hidden="true">
+            <defs>
+              <linearGradient id="grad2" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%" stop-color="#60a5fa"/><stop offset="100%" stop-color="#2563eb"/>
+              </linearGradient>
+              <marker id="arrowHead2" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+                <polygon points="0 0, 7 3.5, 0 7" fill="#2563eb"/>
+              </marker>
+            </defs>
+            <path class="path" style="stroke:url(#grad2)" d="M10,100 C55,30 65,30 110,20" marker-end="url(#arrowHead2)"/>
+            <path class="trail" d="M10,100 C55,30 65,30 110,20"/>
+          </svg>
+        </div>
+
+        <!-- Sync card -->
+        <div class="card">
+          <div class="row">
+            <div class="pill">3</div>
+            <div>
+              <div class="title">Sync to TMS</div>
+              <div class="sub">AP Bill + Docs + Accruals</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Backdrop flowing line -->
+      <svg class="backdrop" viewBox="0 0 1200 400" preserveAspectRatio="none" aria-hidden="true">
+        <defs>
+          <linearGradient id="bgline" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#bfdbfe"/><stop offset="100%" stop-color="#e0f2fe"/>
+          </linearGradient>
+        </defs>
+        <path class="flow" d="M0,260 C200,200 400,120 600,180 C800,240 1000,200 1200,240"></path>
+      </svg>
+
+      <div class="wm">Wove • AP Workflow</div>
+    </section>
+  </main>
+</body>
+</html>
