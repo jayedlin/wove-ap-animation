@@ -19,8 +19,42 @@
       --glow: rgba(37,99,235,0.12);
       --green:#16a34a; 
       --green-light:#86efac;
-
     }
+    /* === Tooltips === */
+.card { position: relative; }
+.tip {
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 10px);
+  transform: translateX(-50%) translateY(4px);
+  background: #0f172a;
+  color: white;
+  font-size: 12px;
+  line-height: 1.3;
+  padding: 6px 8px;
+  border-radius: 8px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .18s ease, transform .18s ease;
+  box-shadow: 0 8px 18px rgba(2,8,23,.22);
+}
+.tip::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 10px; height: 8px;
+  clip-path: polygon(50% 100%, 0 0, 100% 0);
+  background: #0f172a;
+}
+.card:hover .tip,
+.card:focus-within .tip {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+  transition-delay: .05s;
+}
     html,body{height:100%;margin:0;background:linear-gradient(135deg,var(--bg1),var(--bg2));font-family: ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Inter,Segoe UI,Helvetica,Arial,"Apple Color Emoji","Segoe UI Emoji";color:var(--ink);}
     .wrap{
       display:grid;
@@ -126,6 +160,7 @@
       <div class="grid">
         <!-- Ingest card -->
         <div class="card">
+          <div class="tip" role="tooltip">Auto-split PDFs · Email ingest · Bulk upload</div>
           <div class="row">
             <div class="pill step-1">1</div>
             <div>
@@ -153,6 +188,7 @@
 
         <!-- Validate card (accent) -->
         <div class="card" style="box-shadow:0 0 0 0 var(--glow);">
+          <div class="tip" role="tooltip">Side-by-side compare · Variance detection · Inline edits</div>
           <div class="row">
             <div class="pill step-2">2</div>
             <div>
@@ -181,6 +217,7 @@
         <!-- Sync card -->
         <div class="card">
           <div class="row">
+            <div class="tip" role="tooltip">AP Bill + Docs + Accruals posted to TMS</div>
             <div class="pill step-3">3</div>
             <div>
               <div class="title">Sync to TMS</div>
