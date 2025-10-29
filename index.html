@@ -17,6 +17,9 @@
       --blue-300:#93c5fd;
       --blue-400:#60a5fa;
       --glow: rgba(37,99,235,0.12);
+      --green:#16a34a; 
+      --green-light:#86efac;
+
     }
     html,body{height:100%;margin:0;background:linear-gradient(135deg,var(--bg1),var(--bg2));font-family: ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Inter,Segoe UI,Helvetica,Arial,"Apple Color Emoji","Segoe UI Emoji";color:var(--ink);}
     .wrap{
@@ -92,6 +95,29 @@
     }
     /* Tiny watermark (optional, can remove) */
     .wm{ position:absolute; right:14px; bottom:10px; font-size:11px; color:#64748b; opacity:.7 }
+    /* ✅ Green step progression animation */
+@keyframes stepPulse {
+  0%   { background: linear-gradient(135deg, #60a5fa, #2563eb); }
+  10%  { background: linear-gradient(135deg, var(--green-light), var(--green)); }
+  33%  { background: linear-gradient(135deg, var(--green-light), var(--green)); }
+  43%  { background: linear-gradient(135deg, #60a5fa, #2563eb); }
+  100% { background: linear-gradient(135deg, #60a5fa, #2563eb); }
+}
+
+.step-1 {
+  animation: stepPulse 4.5s infinite;
+  animation-delay: 0s;
+}
+
+.step-2 {
+  animation: stepPulse 4.5s infinite;
+  animation-delay: 1.5s;
+}
+
+.step-3 {
+  animation: stepPulse 4.5s infinite;
+  animation-delay: 3s;
+}
   </style>
 </head>
 <body>
@@ -101,7 +127,7 @@
         <!-- Ingest card -->
         <div class="card">
           <div class="row">
-            <div class="pill">1</div>
+            <div class="pill step-1">1</div>
             <div>
               <div class="title">Ingest</div>
               <div class="sub">Email / Upload / Auto-split</div>
@@ -128,7 +154,7 @@
         <!-- Validate card (accent) -->
         <div class="card" style="box-shadow:0 0 0 0 var(--glow);">
           <div class="row">
-            <div class="pill" style="background:linear-gradient(135deg,#2563eb,#1d4ed8)">2</div>
+            <div class="pill step-2">2</div>
             <div>
               <div class="title">Validate</div>
               <div class="sub">Side-by-side review & edits</div>
@@ -155,7 +181,7 @@
         <!-- Sync card -->
         <div class="card">
           <div class="row">
-            <div class="pill">3</div>
+            <div class="pill step-3">3</div>
             <div>
               <div class="title">Sync to TMS</div>
               <div class="sub">AP Bill + Docs + Accruals</div>
